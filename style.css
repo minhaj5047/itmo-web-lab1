@@ -1,0 +1,129 @@
+body {
+    font-family: Arial, sans-serif;
+    color: #222;
+    background: #f4f6f8;
+    margin: 2%;
+}
+
+#header {
+    font-family: monospace;
+    font-size: 20px;
+    color: #1a4d8f;
+    background: #dfe9f5;
+    padding: 12px;
+    text-align: center;
+}
+
+#layout {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cell {
+    vertical-align: top;
+    padding: 10px;
+}
+
+.graph-cell {
+    width: 620px;
+}
+
+.form-cell {
+    background: #fff;
+    border: 1px solid #cfd8e3;
+    padding: 16px;
+}
+
+.form-table td {
+    padding: 6px;
+}
+
+.label {
+    font-weight: bold;
+    font-size: 18px;
+    width: 30px;
+}
+
+.options {
+    white-space: nowrap;
+}
+
+.options label {
+    margin-right: 6px;
+}
+
+.hint {
+    color: #777;
+    font-size: 14px;
+}
+
+.error {
+    color: #c62828;
+}
+
+table {
+    color: inherit;
+}
+
+input[type="checkbox"] {
+    margin: 2% 1%;
+}
+
+input[type="text"] {
+    width: 40%;
+    margin: 2% 1%;
+    padding: 1.5%;
+    font-size: 16px;
+    border: 1px solid #9aa8b8;
+}
+
+input[type="submit"],
+input[type="button"] {
+    margin: 3% 1%;
+    padding: 2% 4%;
+    font-size: 15px;
+    border: none;
+    color: #fff;
+}
+
+input[type="submit"] {
+    background: #1a73e8;
+}
+
+input[type="button"] {
+    background: #8a94a0;
+}
+
+canvas {
+    background: #fff;
+    border: 1px solid #999;
+}
+
+#results {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+#results th,
+#results td {
+    border: 1px solid #999;
+    padding: 6px;
+    text-align: center;
+}
+
+#results th {
+    background: #dfe9f5;
+}
+
+th {
+    background: #ccc;
+}
+
+.hit {
+    color: #2e7d32;
+}
+
+.miss {
+    color: #c62828;
+}

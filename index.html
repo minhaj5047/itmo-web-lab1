@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<table id="layout">
+    <tr>
+        <td colspan="2" id="header">
+            Full name: Ислам Минхаджул | Group: P3232 | Variant: 22714
+        </td>
+    </tr>
+    <tr>
+        <td class="cell graph-cell">
+            <canvas id="graph" width="600" height="600"></canvas>
+        </td>
+        <td class="cell form-cell">
+            <form id="point-form">
+                <table class="form-table">
+                    <tr>
+                        <td class="label">X:</td>
+                        <td class="options">
+                            <label><input type="checkbox" name="x" value="-5">-5</label>
+                            <label><input type="checkbox" name="x" value="-4">-4</label>
+                            <label><input type="checkbox" name="x" value="-3">-3</label>
+                            <label><input type="checkbox" name="x" value="-2">-2</label>
+                            <label><input type="checkbox" name="x" value="-1">-1</label>
+                            <label><input type="checkbox" name="x" value="0">0</label>
+                            <label><input type="checkbox" name="x" value="1">1</label>
+                            <label><input type="checkbox" name="x" value="2">2</label>
+                            <label><input type="checkbox" name="x" value="3">3</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">Y:</td>
+                        <td>
+                            <input type="text" name="y" id="y-input" autocomplete="off" placeholder="e.g. 1.5">
+                            <span class="hint">-3 &lt; Y &lt; 5</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">R:</td>
+                        <td class="options">
+                            <label><input type="checkbox" name="r" value="1" checked>1</label>
+                            <label><input type="checkbox" name="r" value="2">2</label>
+                            <label><input type="checkbox" name="r" value="3">3</label>
+                            <label><input type="checkbox" name="r" value="4">4</label>
+                            <label><input type="checkbox" name="r" value="5">5</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" value="Check">
+                            <input type="button" id="clear-button" value="Clear history">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" id="error" class="error"></td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="cell">
+            <table id="results">
+                <thead>
+                <tr>
+                    <th>X</th>
+                    <th>Y</th>
+                    <th>R</th>
+                    <th>Result</th>
+                    <th>Date and time</th>
+                </tr>
+                </thead>
+                <tbody id="results-body"></tbody>
+            </table>
+        </td>
+    </tr>
+</table>
+<script src="script.js"></script>
+</body>
+</html>
