@@ -194,7 +194,14 @@ form.addEventListener("submit", function (e) {
 function load() {
     try {
         let s = localStorage.getItem(KEY);
-        if (s) return JSON.parse(s);
+        if (s) {
+            let savedData = JSON.parse(s);
+            for (let i = 0; i < savedData.length; i++) {
+                let p = savedData[i];
+                p.hit = check(p.x, Number(p.y), p.r); 
+            }
+            return savedData;
+        }
         return [];
     } catch (e) {
         return [];
