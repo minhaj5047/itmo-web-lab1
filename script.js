@@ -95,7 +95,7 @@ function draw(r) {
 
     for (let i = 0; i < data.length; i++) {
         let p = data[i];
-        if (p.r === r) {
+        if (Number(p.r) === Number(r)) {
             ctx.fillStyle = p.hit ? "#2e7d32" : "#c62828";
             ctx.beginPath();
             ctx.arc(cx + p.x * STEP, cy - p.y * STEP, 5, 0, 2 * Math.PI);
@@ -131,11 +131,8 @@ function yValue() {
 }
 
 function inRange(t) {
-    let neg = t.startsWith("-");
-    let whole = t.replace("-", "").split(".")[0].replace(/^0+(?=\d)/, "");
-    if (whole.length > 1) return false;
-    if (neg) return Number(whole) <= 2;
-    return Number(whole) <= 4;
+    let n = Number(t);
+    return n >= -3 && n <= 5;
 }
 
 function ok() {
@@ -196,11 +193,22 @@ function load() {
         let s = localStorage.getItem(KEY);
         if (s) {
             let savedData = JSON.parse(s);
+            let validData = [];
             for (let i = 0; i < savedData.length; i++) {
                 let p = savedData[i];
-                p.hit = check(p.x, Number(p.y), p.r); 
+                let numX = Number(p.x);
+                let numY = Number(p.y);
+                let numR = Number(p.r);
+                
+                if (!isNaN(numX) && !isNaN(numY) && !isNaN(numR)) {
+                    p.x = numX;
+                    p.y = String(p.y); 
+                    p.r = numR;
+                    p.hit = check(p.x, p.y, p.r);
+                    validData.push(p);
+                }
             }
-            return savedData;
+            return validData;
         }
         return [];
     } catch (e) {
@@ -217,7 +225,9 @@ function showTable() {
     for (let i = data.length - 1; i >= 0; i--) {
         let p = data[i];
         let tr = document.createElement("tr");
-        let d = new Date(p.time).toLocaleString("ru-RU");
+        
+        let d = p.time ? new Date(p.time).toLocaleString("ru-RU") : new Date().toLocaleString("ru-RU");
+        
         let values = [p.x, p.y, p.r, p.hit ? "Hit" : "Miss", d];
 
         for (let j = 0; j < values.length; j++) {
