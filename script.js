@@ -195,37 +195,29 @@ form.addEventListener("submit", function (e) {
 });
 
 function load() {
-    try {
-        let s = localStorage.getItem(KEY);
-        if (s) {
-            let savedData = JSON.parse(s);
-            let validData = [];
-            for (let i = 0; i < savedData.length; i++) {
-                let p = savedData[i];
-                
-                if (p.x !== undefined && p.y !== undefined && p.r !== undefined) {
-                    let numX = Number(p.x);
-                    let numY = Number(p.y);
-                    let numR = Number(p.r);
-
-                    p.x = String(p.x);
-                    p.y = String(p.y); 
-                    p.r = numR;
-                    
-                    let res = check(numX, numY, numR);
-                    p.hit = isNaN(res) ? false : res; 
-                    
-                    if (!p.time) p.time = Date.now();
-                    
-                    validData.push(p);
-                }
-            }
-            return validData;
+    let s = localStorage.getItem(KEY);
+    let savedData = [];
+    if (s) {
+        try {
+            savedData = JSON.parse(s);
+        } catch (e) {
+            savedData = [];
         }
-        return [];
-    } catch (e) {
-        return [];
     }
+    let validData = [];
+    for (let i = 0; i < savedData.length; i++) {
+        let p = savedData[i];
+        if (p.x !== undefined && p.y !== undefined && p.r !== undefined) {
+            p.x = String(p.x);
+            p.y = String(p.y);
+            p.r = Number(p.r);
+            let res = check(Number(p.x), Number(p.y), Number(p.r));
+            p.hit = isNaN(res) ? false : res;
+            if (!p.time) p.time = Date.now();
+            validData.push(p);
+        }
+    }
+    return validData;
 }
 
 function save() {
