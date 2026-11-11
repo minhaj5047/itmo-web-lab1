@@ -196,16 +196,22 @@ function load() {
             let validData = [];
             for (let i = 0; i < savedData.length; i++) {
                 let p = savedData[i];
-                let numX = Number(p.x);
-                let numY = Number(p.y);
-                let numR = Number(p.r);
                 
-                if (!isNaN(numX) && !isNaN(numY) && !isNaN(numR)) {
-                    p.x = numX;
-                    p.y = String(p.y); 
-                    p.r = numR;
-                    p.hit = check(p.x, p.y, p.r);
-                    validData.push(p);
+                if (p.x !== undefined && p.y !== undefined && p.r !== undefined) {
+                    let numX = Number(p.x);
+                    let numY = Number(p.y);
+                    let numR = Number(p.r);
+
+                    if (!isNaN(numX) && !isNaN(numY) && !isNaN(numR)) {
+                        p.x = String(p.x);
+                        p.y = String(p.y); 
+                        p.r = numR;
+                        p.hit = check(numX, numY, numR);
+                        
+                        if (!p.time) p.time = Date.now();
+                        
+                        validData.push(p);
+                    }
                 }
             }
             return validData;
