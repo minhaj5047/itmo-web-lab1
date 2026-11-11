@@ -15,6 +15,8 @@ const cy = canvas.height / 2;
 let data = load();
 
 function check(x, y, r) {
+    if (isNaN(x) || isNaN(y) || isNaN(r)) return false;
+    
     if (x >= 0 && y >= 0) {
         return x * x + y * y <= r * r;
     }
@@ -96,10 +98,14 @@ function draw(r) {
     for (let i = 0; i < data.length; i++) {
         let p = data[i];
         if (Number(p.r) === Number(r)) {
-            ctx.fillStyle = p.hit ? "#2e7d32" : "#c62828";
-            ctx.beginPath();
-            ctx.arc(cx + p.x * STEP, cy - p.y * STEP, 5, 0, 2 * Math.PI);
-            ctx.fill();
+            let px = cx + Number(p.x) * STEP;
+            let py = cy - Number(p.y) * STEP;
+            if (!isNaN(px) && !isNaN(py)) {
+                ctx.fillStyle = p.hit ? "#2e7d32" : "#c62828";
+                ctx.beginPath();
+                ctx.arc(px, py, 5, 0, 2 * Math.PI);
+                ctx.fill();
+            }
         }
     }
 }
@@ -202,16 +208,16 @@ function load() {
                     let numY = Number(p.y);
                     let numR = Number(p.r);
 
-                    if (!isNaN(numX) && !isNaN(numY) && !isNaN(numR)) {
-                        p.x = String(p.x);
-                        p.y = String(p.y); 
-                        p.r = numR;
-                        p.hit = check(numX, numY, numR);
-                        
-                        if (!p.time) p.time = Date.now();
-                        
-                        validData.push(p);
-                    }
+                    p.x = String(p.x);
+                    p.y = String(p.y); 
+                    p.r = numR;
+                    
+                    let res = check(numX, numY, numR);
+                    p.hit = isNaN(res) ? false : res; 
+                    
+                    if (!p.time) p.time = Date.now();
+                    
+                    validData.push(p);
                 }
             }
             return validData;
