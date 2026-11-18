@@ -194,6 +194,21 @@ form.addEventListener("submit", function (e) {
     draw(r);
 });
 
+function parseLoose(s) {
+    let out = [];
+    let objs = s.match(/\{[^{}]*\}/g) || [];
+    for (let i = 0; i < objs.length; i++) {
+        let p = {};
+        let re = /"?(\w+)"?\s*:\s*("([^"]*)"|[^,}]*)/g;
+        let m;
+        while ((m = re.exec(objs[i])) !== null) {
+            p[m[1]] = m[3] !== undefined ? m[3] : m[2].trim();
+        }
+        out.push(p);
+    }
+    return out;
+}
+
 function load() {
     let s = localStorage.getItem(KEY);
     let savedData = [];
@@ -201,19 +216,20 @@ function load() {
         try {
             savedData = JSON.parse(s);
         } catch (e) {
-            savedData = [];
+            savedData = parseLoose(s);
         }
     }
+    if (!Array.isArray(savedData)) savedData = [];
     let validData = [];
     for (let i = 0; i < savedData.length; i++) {
         let p = savedData[i];
-        if (p.x !== undefined && p.y !== undefined && p.r !== undefined) {
+        if (p && p.x !== undefined && p.y !== undefined && p.r !== undefined) {
             p.x = String(p.x);
             p.y = String(p.y);
-            p.r = Number(p.r);
-            let res = check(Number(p.x), Number(p.y), Number(p.r));
-            p.hit = isNaN(res) ? false : res;
-            if (!p.time) p.time = Date.now();
+            p.r = String(p.r);
+            p.hit = check(Number(p.x), Number(p.y), Number(p.r));
+            p.time = Number(p.time);
+            if (isNaN(new Date(p.time).getTime()) || !p.time) p.time = Date.now();
             validData.push(p);
         }
     }
